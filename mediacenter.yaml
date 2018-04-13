@@ -1,0 +1,11 @@
+---
+
+- name: Generate and apply configs for ubuntu
+  hosts: mediacenter
+  gather_facts: no
+  connection: local
+  tags: build
+
+  roles:
+    - docker
+    - docker-plex
