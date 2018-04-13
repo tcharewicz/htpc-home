@@ -5,6 +5,8 @@
   gather_facts: no
   connection: local
   tags: build
+  pre_tasks:
+    - include_vars: "vars/main.yml"
 
   roles:
     - docker

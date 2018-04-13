@@ -1,22 +1,21 @@
----
 # tasks file for docker-plex
 
-- name: Create Plex server config directory
-  file: path=/opt/docker-plex/config/ state=directory owner=htpc group=htpc
+- name: Create {{ application.plex.name }} server config directory
+  file: path={{ config_path }}/{{ application.plex.name }} state=directory owner={{ puid }} group={{ pgid }}
 
 - name: Download and Start PlexMediaServer Container
   docker_container:
-    name: plex
-    image: linuxserver/plex
+    name: "{{ application.plex.name }}"
+    image: "{{ application.plex.image }}"
     state: started
     restart_policy: always
     pull: yes
     volumes:
       - "/opt/docker-plex/config/:/config/"
       - "/data/:/data/"
-    network_mode: host
+    network_mode: "{{ application.plex.network_mode }}"
     env:
-      PUID: htpc
-      PGID: htpc
-      VERSION: latest
-      TZ: UTC
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      VERSION: "{{ version }}"
+      TZ: "{{ tz }}"

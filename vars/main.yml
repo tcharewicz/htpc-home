@@ -1,0 +1,72 @@
+---
+
+data_path: /data/
+config_path: /opt/
+puid: htpc
+pgid: htpc
+version: latest
+tz: utc
+
+application:
+  plex:
+    name: plex
+    image: linuxserver/plex
+    volumes:
+      - "{{ config_path }}/plex/config/:/config/"
+      - "{{ data_path }}/tvshows:{{ data_path }}/tvshows"
+      - "{{ data_path }}/movies:{{ data_path }}/movies"
+    network_mode: host
+  plexpy:
+    image: linuxserver/plexpy
+    volumes:
+      - "{{ config_path }}/plexpy/config/:/config/"
+      - "{{ data_path }}/tvshows:{{ data_path }}/tvshows"
+      - "{{ data_path }}/movies:{{ data_path }}/movies"
+    network_mode: host
+  couchpotato:
+    image: linuxserver/couchpotato
+    volumes:
+      - "{{ config_path }}/couchpotato/config/:/config/"
+      - "{{ data_path }}/movies:{{ data_path }}/movies"
+    network_mode: host
+  deluge:
+    image: linuxserver/deluge
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  duplicati:
+    image: linuxserver/duplicati
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  home-assistant:
+    image: homeassistant/home-assistant
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  htpcmanager:
+    image: linuxserver/htpcmanager
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  nextcloud:
+    image: nextcloud
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  sikrage:
+    image: linuxserver/sickrage
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+      - "{{ data_path }}/tvshows:{{ data_path }}/tvshows"
+    network_mode: host
+  unifi:
+    image: jacobalberty/unifi
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
+  tvheadend:
+    image: linuxserver/tvheadend
+    volumes:
+      - "{{ config_path }}/deluge/config/:/config/"
+    network_mode: host
