@@ -29,3 +29,28 @@
     append: yes
   with_items: "{{docker_group_members}}"
   when: docker_group_members is defined
+
+{% for app_name at application -%}
+
+- name: Create {{ application.[app_name].name }} server config directory
+  file: path={{ config_path }}/{{ application.[app_name].name }} state=directory owner={{ puid }} group={{ pgid }}
+
+- name: Download and Start {{app_name}} Container
+  docker_container:
+    name: "{{ application.[app_name].name }}"
+    image: "{{ application.[app_name].image }}"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    {% for volume in application.[app_name].volumes -%}
+      - "{{volume}}"
+    {% endfor -%}
+    network_mode: "{{ application.[app_name].network_mode }}"
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      VERSION: "{{ version }}"
+      TZ: "{{ tz }}"
+
+{% endfor -%}

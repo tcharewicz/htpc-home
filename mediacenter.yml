@@ -7,7 +7,3 @@
   tags: build
   pre_tasks:
     - include_vars: "vars/main.yml"
-
-  roles:
-    - docker
-    - docker-plex
