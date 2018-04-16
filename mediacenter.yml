@@ -1,9 +1,28 @@
 ---
 
-- name: Generate and apply configs for ubuntu
+- name: Run mediacenter playbook
   hosts: mediacenter
   gather_facts: no
   connection: local
   tags: build
   pre_tasks:
     - include_vars: "vars/main.yml"
+  tasks: 
+    - name: Add Group
+      group:
+        name: htpc
+        state: present
+    - name: Add User
+      user:
+        name: htpc
+        comment: htpc
+        group: htpc
+        state: present
+    - name: Install Docker python dependencies
+      pip: name={{ item }} state=latest
+      with_items:
+        - virtualenv
+        - docker-py
+        - pyopenssl
+    - name: Run main task file
+      import_tasks: tasks/main.yml

@@ -1,7 +1,7 @@
 ---
 
-data_path: /data/
-config_path: /opt/
+data_path: /data
+config_path: /opt
 puid: htpc
 pgid: htpc
 version: latest
@@ -17,6 +17,7 @@ application:
       - "{{ data_path }}/movies:{{ data_path }}/movies"
     network_mode: host
   plexpy:
+    name: plexpy
     image: linuxserver/plexpy
     volumes:
       - "{{ config_path }}/plexpy/config/:/config/"
@@ -24,48 +25,57 @@ application:
       - "{{ data_path }}/movies:{{ data_path }}/movies"
     network_mode: host
   couchpotato:
+    name: couchpotato
     image: linuxserver/couchpotato
     volumes:
       - "{{ config_path }}/couchpotato/config/:/config/"
       - "{{ data_path }}/movies:{{ data_path }}/movies"
     network_mode: host
   deluge:
+    name: deluge
     image: linuxserver/deluge
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   duplicati:
+    name: duplicati
     image: linuxserver/duplicati
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   home-assistant:
+    name: home-assistant
     image: homeassistant/home-assistant
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   htpcmanager:
+    name: htpcmanager
     image: linuxserver/htpcmanager
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   nextcloud:
+    name: nextcloud
     image: nextcloud
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   sikrage:
+    name: sikrage
     image: linuxserver/sickrage
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
       - "{{ data_path }}/tvshows:{{ data_path }}/tvshows"
     network_mode: host
   unifi:
+    name: unifi
     image: jacobalberty/unifi
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   tvheadend:
+    name: tvheadend
     image: linuxserver/tvheadend
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"

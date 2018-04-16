@@ -1,0 +1,224 @@
+- name: Install latest docker version
+  apt: name=docker.io state=latest update_cache=yes cache_valid_time=3600
+
+- name: Make sure docker service is enabled and start on boot
+  service: name=docker state=started enabled=yes
+
+- name: Install Python pip
+  apt: name=python-pip state=latest
+
+- name: Create home-assistant server config directory
+  file: path=/opt/home-assistant state=directory owner=htpc group=htpc
+
+- name: Download and Start home-assistant Container
+  docker_container:
+    name: "home-assistant"
+    image: "homeassistant/home-assistant"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create deluge server config directory
+  file: path=/opt/deluge state=directory owner=htpc group=htpc
+
+- name: Download and Start deluge Container
+  docker_container:
+    name: "deluge"
+    image: "linuxserver/deluge"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create htpcmanager server config directory
+  file: path=/opt/htpcmanager state=directory owner=htpc group=htpc
+
+- name: Download and Start htpcmanager Container
+  docker_container:
+    name: "htpcmanager"
+    image: "linuxserver/htpcmanager"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create couchpotato server config directory
+  file: path=/opt/couchpotato state=directory owner=htpc group=htpc
+
+- name: Download and Start couchpotato Container
+  docker_container:
+    name: "couchpotato"
+    image: "linuxserver/couchpotato"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/couchpotato/config/:/config/"
+    - "/data/movies:/data/movies"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create plexpy server config directory
+  file: path=/opt/plexpy state=directory owner=htpc group=htpc
+
+- name: Download and Start plexpy Container
+  docker_container:
+    name: "plexpy"
+    image: "linuxserver/plexpy"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/plexpy/config/:/config/"
+    - "/data/tvshows:/data/tvshows"
+    - "/data/movies:/data/movies"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create plex server config directory
+  file: path=/opt/plex state=directory owner=htpc group=htpc
+
+- name: Download and Start plex Container
+  docker_container:
+    name: "plex"
+    image: "linuxserver/plex"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/plex/config/:/config/"
+    - "/data/tvshows:/data/tvshows"
+    - "/data/movies:/data/movies"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create unifi server config directory
+  file: path=/opt/unifi state=directory owner=htpc group=htpc
+
+- name: Download and Start unifi Container
+  docker_container:
+    name: "unifi"
+    image: "jacobalberty/unifi"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create tvheadend server config directory
+  file: path=/opt/tvheadend state=directory owner=htpc group=htpc
+
+- name: Download and Start tvheadend Container
+  docker_container:
+    name: "tvheadend"
+    image: "linuxserver/tvheadend"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create nextcloud server config directory
+  file: path=/opt/nextcloud state=directory owner=htpc group=htpc
+
+- name: Download and Start nextcloud Container
+  docker_container:
+    name: "nextcloud"
+    image: "nextcloud"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create duplicati server config directory
+  file: path=/opt/duplicati state=directory owner=htpc group=htpc
+
+- name: Download and Start duplicati Container
+  docker_container:
+    name: "duplicati"
+    image: "linuxserver/duplicati"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+
+- name: Create sikrage server config directory
+  file: path=/opt/sikrage state=directory owner=htpc group=htpc
+
+- name: Download and Start sikrage Container
+  docker_container:
+    name: "sikrage"
+    image: "linuxserver/sickrage"
+    state: started
+    restart_policy: always
+    pull: yes
+    volumes:
+    - "/opt/deluge/config/:/config/"
+    - "/data/tvshows:/data/tvshows"
+    network_mode: "host"
+    env:
+      PUID: "htpc"
+      PGID: "htpc"
+      VERSION: "latest"
+      TZ: "utc"
+

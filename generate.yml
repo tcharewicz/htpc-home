@@ -14,15 +14,3 @@
       dest={{ playbook_dir }}/tasks/main.yml
     tags: build
 
-
-
-
-- name: Generate yaml host_vars configs for leafs in fabric1
-  hosts: fabric_leafs_1
-  gather_facts: no
-  connection: local
-  tags: build
-  pre_tasks:
-    - include_vars: "configs/fabric-topology-1.yml"
-    - include_vars: "configs/fabric-clients.yml"
-
