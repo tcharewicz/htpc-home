@@ -1,0 +1,18 @@
+---
+
+- hosts: mediacenter
+  gather_facts: yes
+  connection: local
+  tags: build
+  pre_tasks:
+    - include_vars: "vars/main.yml"
+  roles:
+    - { role: reverse_proxy, service_name: plex, dest_port: "{{plex_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: plexpy, dest_port: "{{plexpy_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: deluge, dest_port: "{{deluged_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: couchpotato, dest_port: "{{couchpotato_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: sickbeard, dest_port: "{{sickbeard_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: htpc, dest_port: "{{htpc_manager_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: homeassistant, dest_port: "{{homeassistant_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: unifi, dest_port: "{{unifi_port}}", listen_port: 80}
+#    - { role: reverse_proxy, service_name: tvheadend, dest_port: "{{tvheadend_port}}", listen_port: 80}

@@ -26,3 +26,12 @@
         - pyopenssl
     - name: Run main task file
       import_tasks: tasks/main.yml
+
+- hosts: mediacenter
+  gather_facts: yes
+  roles:
+    - { role: reverse_proxy, service_name: plex, dest_port: "{{plex_port}}", listen_port: 80}
+    - { role: reverse_proxy, service_name: deluge, dest_port: "{{deluged_port}}", listen_port: 80}
+    - { role: reverse_proxy, service_name: couchpotato, dest_port: "{{couchpotato_port}}", listen_port: 80}
+    - { role: reverse_proxy, service_name: sickbeard, dest_port: "{{sickbeard_port}}", listen_port: 80}
+    - { role: reverse_proxy, service_name: htpc, dest_port: "{{htpc_manager_port}}", listen_port: 80}

@@ -7,6 +7,18 @@ pgid: htpc
 version: latest
 tz: utc
 
+fqdn_host: home.lan
+
+plex_port: 32400
+plexpy_port: 8181
+deluged_port: 8112
+couchpotato_port: 5050
+sickbeard_port: 8081 
+homeassistant_port: 8123
+htpc_manager_port: 8085
+unifi_port: 8843
+tvheadend_port: 9982
+
 application:
   plex:
     name: plex

@@ -1,0 +1,22 @@
+---
+- name: Install Apache
+  apt: name=apache2 state=present
+
+- name: Enable apache proxy modules
+  command: a2enmod {{ item }}
+  with_items:
+    - proxy
+    - proxy_http
+
+- name: Disable default apache site
+  file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
+
+- name: Add VirtualHost site
+  template: src=apache_reverse_proxy.conf dest=/etc/apache2/sites-available/{{service_name}}.conf
+
+- name: Enable apache2 reverse proxy for service
+  file: src=/etc/apache2/sites-available/{{service_name}}.conf dest=/etc/apache2/sites-enabled/{{service_name}}.conf state=link
+
+- name: Restart Apache
+  service: name=apache2 state=restarted
+
