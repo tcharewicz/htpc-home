@@ -18,19 +18,23 @@
         comment: htpc
         group: htpc
         state: present
-    - name: Install Docker python dependencies
-      pip: name={{ item }} state=latest
-      with_items:
-        - virtualenv
-        - docker-py
-        - pyopenssl
     - name: Run main task file
       import_tasks: tasks/main.yml
 
 - hosts: mediacenter
-  gather_facts: no
+  gather_facts: yes
+  connection: local
+  tags: build
+  pre_tasks:
+    - include_vars: "vars/main.yml"
   roles:
-    - { role: reverse_proxy, service_name: plex, dest_port: "{{plex_port}}", listen_port: 80}
-    - { role: reverse_proxy, service_name: deluge, dest_port: "{{deluged_port}}", listen_port: 80}
-    - { role: reverse_proxy, service_name: couchpotato, dest_port: "{{couchpotato_port}}", listen_port: 80}
-    - { role: reverse_proxy, service_name: sickbeard, dest_port: "{{sickbeard_port}}", listen_port: 80}
+  - { role: reverse_proxy, service_name: deluge, dest_port: "8112", listen_port: 80}
+  - { role: reverse_proxy, service_name: htpcmanager, dest_port: "8085", listen_port: 80}
+  - { role: reverse_proxy, service_name: couchpotato, dest_port: "5050", listen_port: 80}
+  - { role: reverse_proxy, service_name: plexpy, dest_port: "8181", listen_port: 80}
+  - { role: reverse_proxy, service_name: plex, dest_port: "32400", listen_port: 80}
+  - { role: reverse_proxy, service_name: unifi, dest_port: "8843", listen_port: 80}
+  - { role: reverse_proxy, service_name: tvheadend, dest_port: "9982", listen_port: 80}
+  - { role: reverse_proxy, service_name: duplicati, dest_port: "9191", listen_port: 80}
+  - { role: reverse_proxy, service_name: sikrage, dest_port: "8081", listen_port: 80}
+  

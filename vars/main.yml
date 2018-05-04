@@ -9,20 +9,11 @@ tz: utc
 
 fqdn_host: home.lan
 
-plex_port: 32400
-plexpy_port: 8181
-deluged_port: 8112
-couchpotato_port: 5050
-sickbeard_port: 8081 
-homeassistant_port: 8123
-htpc_manager_port: 8085
-unifi_port: 8843
-tvheadend_port: 9982
-
 application:
   plex:
     name: plex
     image: linuxserver/plex
+    port: 32400
     volumes:
       - "{{ config_path }}/plex/config/:/config/"
       - "{{ data_path }}/tvshows:/tvshows"
@@ -32,6 +23,7 @@ application:
   plexpy:
     name: plexpy
     image: linuxserver/plexpy
+    port: 8181
     volumes:
       - "{{ config_path }}/plexpy/config/:/config/"
       - "{{ data_path }}/tvshows:{{ data_path }}/tvshows"
@@ -40,6 +32,7 @@ application:
   couchpotato:
     name: couchpotato
     image: linuxserver/couchpotato
+    port: 5050
     volumes:
       - "{{ config_path }}/couchpotato/config/:/config/"
       - "{{ data_path }}/tvshows:/tvshows"
@@ -49,6 +42,7 @@ application:
   deluge:
     name: deluge
     image: linuxserver/deluge
+    port: 8112
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
       - "{{ data_path }}/downloads:/downloads"
@@ -56,25 +50,29 @@ application:
   duplicati:
     name: duplicati
     image: linuxserver/duplicati
+    port: 9191
     volumes:
       - "{{ config_path }}/duplicati/config/:/config/"
     network_mode: host
   htpcmanager:
     name: htpcmanager
     image: linuxserver/htpcmanager
+    port: 8085
     volumes:
       - "{{ config_path }}/htpcmanager/config/:/config/"
     network_mode: host
-  nextcloud:
-    name: nextcloud
-    image: linuxserver/nextcloud
-    volumes:
-      - "{{ config_path }}/nextcloud/config/:/config/"
-      - "{{ data_path }}/:/data"
-    network_mode: host
+#  nextcloud:
+#    name: nextcloud
+#    image: linuxserver/nextcloud
+#    port: 8888
+#    volumes:
+#      - "{{ config_path }}/nextcloud/config/:/config/"
+#      - "{{ data_path }}/:/data"
+#    network_mode: host
   sikrage:
     name: sikrage
     image: linuxserver/sickrage
+    port: 8081
     volumes:
       - "{{ config_path }}/couchpotato/config/:/config/"
       - "{{ data_path }}/tvshows:/tvshows"
@@ -84,12 +82,14 @@ application:
   unifi:
     name: unifi
     image: linuxserver/unifi
+    port: 8843
     volumes:
       - "{{ config_path }}/deluge/config/:/config/"
     network_mode: host
   tvheadend:
     name: tvheadend
     image: linuxserver/tvheadend
+    port: 9982
     volumes:
       - "{{ config_path }}/tvheadend/config/:/config/"
       - "{{ data_path }}/recordings//:/recordings/"

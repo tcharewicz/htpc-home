@@ -150,26 +150,6 @@
       VERSION: "latest"
       TZ: "utc"
 
-- name: Create nextcloud server config directory
-  file: path=/opt/nextcloud state=directory owner=htpc group=htpc
-
-- name: Download and Start nextcloud Container
-  docker_container:
-    name: "nextcloud"
-    image: "linuxserver/nextcloud"
-    state: started
-    restart_policy: always
-    pull: yes
-    volumes:
-    - "/opt/nextcloud/config/:/config/"
-    - "/data/:/data"
-    network_mode: "host"
-    env:
-      PUID: "htpc"
-      PGID: "htpc"
-      VERSION: "latest"
-      TZ: "utc"
-
 - name: Create duplicati server config directory
   file: path=/opt/duplicati state=directory owner=htpc group=htpc
 

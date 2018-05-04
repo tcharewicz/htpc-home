@@ -14,3 +14,8 @@
       dest={{ playbook_dir }}/tasks/main.yml
     tags: build
 
+  - name: "Building mediacenter.yml file"
+    template: >
+      src={{ playbook_dir }}/templates/mediacenter.j2
+      dest={{ playbook_dir }}/mediacenter.yml
+    tags: build
