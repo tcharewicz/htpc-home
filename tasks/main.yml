@@ -7,25 +7,6 @@
 - name: Install Python pip
   apt: name=python-pip state=latest
 
-- name: Create home-assistant server config directory
-  file: path=/opt/home-assistant state=directory owner=htpc group=htpc
-
-- name: Download and Start home-assistant Container
-  docker_container:
-    name: "home-assistant"
-    image: "homeassistant/home-assistant"
-    state: started
-    restart_policy: always
-    pull: yes
-    volumes:
-    - "/opt/deluge/config/:/config/"
-    network_mode: "host"
-    env:
-      PUID: "htpc"
-      PGID: "htpc"
-      VERSION: "latest"
-      TZ: "utc"
-
 - name: Create deluge server config directory
   file: path=/opt/deluge state=directory owner=htpc group=htpc
 
@@ -132,7 +113,7 @@
 - name: Download and Start unifi Container
   docker_container:
     name: "unifi"
-    image: "jacobalberty/unifi"
+    image: "linuxserver/unifi"
     state: started
     restart_policy: always
     pull: yes
@@ -170,7 +151,7 @@
 - name: Download and Start nextcloud Container
   docker_container:
     name: "nextcloud"
-    image: "nextcloud"
+    image: "linuxserver/nextcloud"
     state: started
     restart_policy: always
     pull: yes
