@@ -8,7 +8,7 @@
   pre_tasks:
     - include_vars: "vars/main.yml"
   tasks:
-  - name: "Building configuration for farbic leafs"
+  - name: "Building task/main.yml file"
     template: >
       src={{ playbook_dir }}/templates/main.j2
       dest={{ playbook_dir }}/tasks/main.yml

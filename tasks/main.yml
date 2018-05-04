@@ -19,6 +19,7 @@
     pull: yes
     volumes:
     - "/opt/deluge/config/:/config/"
+    - "/data/downloads:/downloads"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -37,7 +38,7 @@
     restart_policy: always
     pull: yes
     volumes:
-    - "/opt/deluge/config/:/config/"
+    - "/opt/htpcmanager/config/:/config/"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -57,7 +58,9 @@
     pull: yes
     volumes:
     - "/opt/couchpotato/config/:/config/"
-    - "/data/movies:/data/movies"
+    - "/data/tvshows:/tvshows"
+    - "/data/movies:/movies"
+    - "/data/downloads:/downloads"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -98,8 +101,9 @@
     pull: yes
     volumes:
     - "/opt/plex/config/:/config/"
-    - "/data/tvshows:/data/tvshows"
-    - "/data/movies:/data/movies"
+    - "/data/tvshows:/tvshows"
+    - "/data/movies:/movies"
+    - "/data/downloads:/downloads"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -137,7 +141,8 @@
     restart_policy: always
     pull: yes
     volumes:
-    - "/opt/deluge/config/:/config/"
+    - "/opt/tvheadend/config/:/config/"
+    - "/data/recordings//:/recordings/"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -156,7 +161,8 @@
     restart_policy: always
     pull: yes
     volumes:
-    - "/opt/deluge/config/:/config/"
+    - "/opt/nextcloud/config/:/config/"
+    - "/data/:/data"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -175,7 +181,7 @@
     restart_policy: always
     pull: yes
     volumes:
-    - "/opt/deluge/config/:/config/"
+    - "/opt/duplicati/config/:/config/"
     network_mode: "host"
     env:
       PUID: "htpc"
@@ -194,8 +200,10 @@
     restart_policy: always
     pull: yes
     volumes:
-    - "/opt/deluge/config/:/config/"
-    - "/data/tvshows:/data/tvshows"
+    - "/opt/couchpotato/config/:/config/"
+    - "/data/tvshows:/tvshows"
+    - "/data/movies:/movies"
+    - "/data/downloads:/downloads"
     network_mode: "host"
     env:
       PUID: "htpc"
